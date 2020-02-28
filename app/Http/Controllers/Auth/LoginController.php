@@ -110,11 +110,11 @@ class LoginController extends Controller
 
   
 
-        return Auth::guard(Config::get('admin'))->attempt(
+        return Auth::guard('admin')->attempt(
             [
                 'email' => $request->email,
                 'password' => $request->password
-            ]
+            ],
         );
 
         // return back()->withInput($request->only('email', 'remember'));
@@ -135,7 +135,7 @@ class LoginController extends Controller
             [
                 'email' => $request->email,
                 'password' => $request->password
-            ]
+            ],
         );
     }
 }

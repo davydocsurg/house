@@ -21,16 +21,22 @@ class RedirectIfAuthenticated
         // if (Auth::guard($guard)->check()) {
         //     return redirect(RouteServiceProvider::HOME);
         // }
+        // dd($guard);
 
         if ($guard === 'admin' && Auth::guard($guard)->check()) {
+            // dd($guard);
             return redirect('/admin');
         }
         if ($guard === 'agent' && Auth::guard($guard)->check()) {
+            
             return redirect('/agent');
         }
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         }
+
+        // dd('hey');
+
 
         return $next($request);
     }
