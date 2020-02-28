@@ -24,44 +24,7 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-//     use RegisterRequest;
 
-//     public function ShowLoginForm()
-//    {
-//        return view('authentication.login');
-//    }
-
-//    public function HandleLogin(Request $request)
-//    {
-       
-//        $this->loginDataSanitization($request->except(['_token']));
-
-//        $credentials = $request->except(['_token']);
-
-//        $user = User::where('email',$request->email)->first();
-
-//        if($user->email_verified == 1){
-
-//        if (auth()->attempt($credentials)) {
-
-//                 $user = auth()->user();
-
-//                 $user->last_login = Carbon::now();
-
-//                 $user->save();
-
-//                 return redirect()->route('home');
-
-//            }
-          
-//        }
-
-//        session()->flash('message', 'Invalid Credentials');
-
-//        session()->flash('type', 'danger');
-
-//        return redirect()->back();
-//    }
 
     use AuthenticatesUsers;
 
@@ -90,7 +53,7 @@ class LoginController extends Controller
     public function showAdminLoginForm()
     {
         return view('auth.login', [
-            'url' => Config::get('constants.guards.admin')
+            'url' => 'admin'
         ]);
     }
 
@@ -100,7 +63,7 @@ class LoginController extends Controller
     public function showAgentLoginForm()
     {
         return view('auth.login', [
-            'url' => Config::get('constants.guards.agent')
+            'url' => 'agent'
         ]);
     }
 
@@ -141,11 +104,20 @@ class LoginController extends Controller
      */
     public function adminLogin(Request $request)
     {
-        if ($this->guardLogin($request, Config::get('constants.guards.admin'))) {
-            return redirect()->intended('/admin');
-        }
+        // if ($this->guardLogin($request, Config::get('constants.guards.admin'))) {
+        //     return redirect()->intended('/admin');
+        // }
 
-        return back()->withInput($request->only('email', 'remember'));
+  
+
+        return Auth::guard(Config::get('admin'))->attempt(
+            [
+                'email' => $request->email,
+                'password' => $request->password
+            ]
+        );
+
+        // return back()->withInput($request->only('email', 'remember'));
     }
 
 
@@ -157,10 +129,13 @@ class LoginController extends Controller
      */
     public function agentLogin(Request $request)
     {
-        if ($this->guardLogin($request,Config::get('constants.guards.agent'))) {
-            return redirect()->intended('/agent');
-        }
+        // dd('hey');
 
-        return back()->withInput($request->only('email', 'remember'));
+        return Auth::guard('agent')->attempt(
+            [
+                'email' => $request->email,
+                'password' => $request->password
+            ]
+        );
     }
 }
