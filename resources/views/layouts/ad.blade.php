@@ -19,10 +19,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/6f3bcf9b28.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -45,6 +48,7 @@
                             {{App\Admin::where('id', Auth::id())->value('name')}} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a href="{{url('/housecategory')}}" class="dropdown-item"><i class="fas fa-plus-square"></i> Category</a>
                                 <a class="dropdown-item"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

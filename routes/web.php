@@ -29,9 +29,15 @@ Route::post('/login/agent', 'Auth\LoginController@agentLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('register.admin');
 Route::post('/register/agent', 'Auth\RegisterController@createAgent')->name('register.agent');
 
+
+
 Route::view('/home', 'home')->middleware('auth');
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::view('/admin', 'admin');
+    Route::get('/housecategory', 'CategoryController@adminCategory')->middleware('auth');
+    Route::get('/addCategory', 'CategoryController@addCategory')->middleware('auth');
+    Route::post('/addCategory', 'CategoryController@addCategory')->middleware('auth');
+
 });
 
 Route::group(['middleware' => 'auth:agent'], function () {
