@@ -17,7 +17,7 @@
 
             @endif
             <div class="card">
-                <div class="card-header">House Category</div>
+                <div class="card-header">Add House Category</div>
 
                 <div class="card-body">              
                     <div class="row justify-content-center">

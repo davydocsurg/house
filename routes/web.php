@@ -29,15 +29,27 @@ Route::post('/login/agent', 'Auth\LoginController@agentLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('register.admin');
 Route::post('/register/agent', 'Auth\RegisterController@createAgent')->name('register.agent');
 
-
+//no auth
 
 Route::view('/home', 'home')->middleware('auth');
+Route::get('/view/{id}', 'PostController@view')->middleware('auth');
+
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::view('/admin', 'admin');
     Route::get('/housecategory', 'CategoryController@adminCategory')->middleware('auth');
     Route::get('/addCategory', 'CategoryController@addCategory')->middleware('auth');
     Route::post('/addCategory', 'CategoryController@addCategory')->middleware('auth');
+    Route::get('/post', 'PostController@post')->middleware('auth');
+    Route::post('/addPost', 'PostController@addPost')->middleware('auth');
 
+// view posts
+    Route::get('/view/{id}', 'PostController@view')->middleware('auth');
+    Route::get('/edit/{id}', 'PostController@edit')->middleware('auth');
+    Route::post('/edit/{id}', 'PostController@editPost')->middleware('auth');
+    Route::get('/delete/{id}', 'PostController@deletePost')->middleware('auth');
+
+    
+    
 });
 
 Route::group(['middleware' => 'auth:agent'], function () {

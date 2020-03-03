@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li><a href="{{ url('/home')}}"><i class="fas fa-home"></i></a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -48,6 +48,7 @@
                             {{App\Admin::where('id', Auth::id())->value('name')}} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a href="{{ url('/post')}}" class="dropdown-item"><i class="fas fa-plus-square"></i> Posts</a>
                                 <a href="{{url('/housecategory')}}" class="dropdown-item"><i class="fas fa-plus-square"></i> Category</a>
                                 <a class="dropdown-item"
                                    onclick="event.preventDefault();
